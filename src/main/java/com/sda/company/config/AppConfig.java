@@ -11,5 +11,4 @@ public class AppConfig {
     public CustomFakerCompany customFakerCompany() {
         return new CustomFakerCompany();
     }
-
 }

@@ -1,6 +1,12 @@
 package com.sda.company.controller;
 
+<<<<<<< HEAD
 import com.sda.company.components.CustomFakerCompany;
+=======
+import com.github.javafaker.Faker;
+import com.sda.company.components.CustomFakerCompany;
+import com.sda.company.config.AppConfig;
+>>>>>>> origin/main
 import com.sda.company.dto.CompanyCreateDto;
 import com.sda.company.dto.CompanyFullDto;
 import com.sda.company.dto.CompanyResponseDto;
@@ -10,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> origin/main
 import java.util.List;
 
 @RestController
@@ -36,10 +46,20 @@ public class CompanyController {
     }
 
     @GetMapping("/findAll")
+<<<<<<< HEAD
     public ResponseEntity findAll(@RequestParam(defaultValue = "0") Integer pageNumber,
                                   @RequestParam(defaultValue = "5") Integer pageSize,
                                   @RequestParam(defaultValue = "id") String sortBy) {
         return ResponseEntity.ok(companyService.findAll(pageNumber,pageSize,sortBy));
+=======
+    public ResponseEntity<List<CompanyFullDto>> findAll(@RequestParam(defaultValue = "0") Integer pageNumber,
+                                                        @RequestParam(defaultValue = "5") Integer pageSize,
+                                                        @RequestParam(defaultValue = "id") String sortBy) {
+
+        List<CompanyFullDto> listOfCompany = companyService.findAll(pageNumber,pageSize,sortBy);
+
+        return ResponseEntity.ok(listOfCompany);
+>>>>>>> origin/main
     }
 
     @GetMapping("/findByName")
@@ -60,4 +80,6 @@ public class CompanyController {
         CompanyFullDto companyFullDto = companyService.findCompanyByNameAndRegistrationNumber(companyName, companyRegistrationNumber);
         return ResponseEntity.ok(companyFullDto);
     }
+
+
 }

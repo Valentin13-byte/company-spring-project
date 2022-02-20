@@ -17,9 +17,15 @@ public interface CompanyService {
 
     CompanyFullDto findCompanyByNameAndRegistrationNumber(String name, Long registrationNumber);
 
+<<<<<<< HEAD
 //    List<CompanyResponseDto> findAll();
 
     void saveAllCompanies(List<Company> listOfCompanies);
 
     List<CompanyFullDto> findAll(Integer pageNumber, Integer pageSize, String sortBy);
+=======
+    List<CompanyFullDto> findAll(Integer pageNumber, Integer pageSize, String sortBy);
+
+    void saveAllCompanies(List<Company> listOfCompanies);
+>>>>>>> origin/main
 }

@@ -13,6 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<CompanyFullDto> findAll(Integer pageNumber, Integer pageSize, String sortBy) {
 
+<<<<<<< HEAD
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
 
         List<CompanyFullDto> returnList = new ArrayList<>();
@@ -62,11 +67,27 @@ public class CompanyServiceImpl implements CompanyService {
             returnList.add(CompanyMapper.companyToFullDto(entity));
         });
         return returnList;
+=======
+        Pageable pageable = PageRequest.of(pageNumber,pageSize, Sort.by(sortBy));
+
+        List<CompanyFullDto> result = new ArrayList<>();
+        companyRepository.findAll(pageable).forEach(entity -> {
+            result.add(CompanyMapper.companyToFullDto(entity));
+        });
+        return result;
+>>>>>>> origin/main
     }
 
     @Override
     public void saveAllCompanies(List<Company> listOfCompanies) {
         companyRepository.saveAll(listOfCompanies);
+<<<<<<< HEAD
         System.out.println("all companies were created");
     }
+=======
+        System.out.println(listOfCompanies.size() + " companies was added");
+    }
+
+
+>>>>>>> origin/main
 }

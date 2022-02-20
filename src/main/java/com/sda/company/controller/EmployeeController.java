@@ -23,10 +23,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/findByFirstNameAndLastName")
+<<<<<<< HEAD
     public ResponseEntity<EmployeeFullDto> findByFirstNameAndLastName(@RequestParam String firstName,
                                                                       @RequestParam String lastName) {
+=======
+    public ResponseEntity<EmployeeFullDto> findByFirstNameAndLastName(@RequestParam String firstName,@RequestParam String lastName) {
+>>>>>>> origin/main
         EmployeeFullDto employeeFullDto = employeeService.findEmployeeByFirstNameAndLastName(firstName, lastName);
         return ResponseEntity.ok(employeeFullDto);
     }
-
 }
