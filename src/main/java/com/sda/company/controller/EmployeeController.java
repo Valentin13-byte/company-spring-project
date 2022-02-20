@@ -23,9 +23,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/findByFirstNameAndLastName")
-    public ResponseEntity<EmployeeFullDto> findByFirstNameAndLastName(@RequestParam String firstName, String lastName) {
+    public ResponseEntity<EmployeeFullDto> findByFirstNameAndLastName(@RequestParam String firstName,@RequestParam String lastName) {
         EmployeeFullDto employeeFullDto = employeeService.findEmployeeByFirstNameAndLastName(firstName, lastName);
         return ResponseEntity.ok(employeeFullDto);
     }
-
 }
