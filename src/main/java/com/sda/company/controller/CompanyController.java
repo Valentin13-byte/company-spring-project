@@ -1,12 +1,16 @@
 package com.sda.company.controller;
 
+import com.sda.company.components.CustomFakerCompany;
 import com.sda.company.dto.CompanyCreateDto;
 import com.sda.company.dto.CompanyFullDto;
 import com.sda.company.dto.CompanyResponseDto;
+import com.sda.company.model.Company;
 import com.sda.company.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/company")
@@ -15,6 +19,14 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private CustomFakerCompany customFakerCompany;
+
+    @GetMapping("/generateCompanies")
+    public void generateCompanies() {
+        List<Company> listOfCompanies = customFakerCompany.createDummyCompanyList();
+        companyService.saveAllCompanies(listOfCompanies);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<CompanyResponseDto> createCompany(@RequestBody CompanyCreateDto companyCreateDto) {
@@ -24,9 +36,10 @@ public class CompanyController {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity findAll() {
-
-        return null;
+    public ResponseEntity findAll(@RequestParam(defaultValue = "0") Integer pageNumber,
+                                  @RequestParam(defaultValue = "5") Integer pageSize,
+                                  @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(companyService.findAll(pageNumber,pageSize,sortBy));
     }
 
     @GetMapping("/findByName")
@@ -42,7 +55,8 @@ public class CompanyController {
     }
 
     @GetMapping("/findByNameAndRegistrationNumber")
-    public ResponseEntity<CompanyFullDto> findByNameAndRegistrationNumber(@RequestParam String companyName, Long companyRegistrationNumber) {
+    public ResponseEntity<CompanyFullDto> findByNameAndRegistrationNumber(@RequestParam String companyName,
+                                                                          @RequestParam Long companyRegistrationNumber) {
         CompanyFullDto companyFullDto = companyService.findCompanyByNameAndRegistrationNumber(companyName, companyRegistrationNumber);
         return ResponseEntity.ok(companyFullDto);
     }

@@ -8,7 +8,13 @@ import com.sda.company.model.Company;
 import com.sda.company.repository.CompanyRepository;
 import com.sda.company.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -44,5 +50,23 @@ public class CompanyServiceImpl implements CompanyService {
                 .orElseThrow(() -> new RuntimeException("Company not found"));
 
         return CompanyMapper.companyToFullDto(company);
+    }
+
+    @Override
+    public List<CompanyFullDto> findAll(Integer pageNumber, Integer pageSize, String sortBy) {
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+
+        List<CompanyFullDto> returnList = new ArrayList<>();
+        companyRepository.findAll(pageable).forEach(entity -> {
+            returnList.add(CompanyMapper.companyToFullDto(entity));
+        });
+        return returnList;
+    }
+
+    @Override
+    public void saveAllCompanies(List<Company> listOfCompanies) {
+        companyRepository.saveAll(listOfCompanies);
+        System.out.println("all companies were created");
     }
 }
