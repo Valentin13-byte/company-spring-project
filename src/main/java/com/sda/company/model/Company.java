@@ -10,7 +10,7 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "company_name", unique = true)
+    @Column(name = "company_name")
     private String name;
 
     @Column(name = "company_address")
